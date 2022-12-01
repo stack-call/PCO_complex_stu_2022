@@ -11,25 +11,32 @@
      自行设计的各个控制信号
 */
 //省略号中是自行设计的控制信号，需要自行补充，没用到z的话去掉z
-module control(din,clk,rst,z,cpustate, ...... ,clr);
+module control(din,clk,rst,z,cpustate, 
+read, write, arload, arinc, pcinc, pcload, drload, trload, irload, r1load, 
+alus, r0load, xload, zload, pcbus, drhbus, drlbus, trbus, r1bus, r0bus, membus, busmem,
+clr);
 input [7:0]din;
 input clk;
 input rst,z;
 input [1:0] cpustate;
 
 //输出端口说明
+output read, write, arload, arinc, pcinc, pcload, drload, trload, irload, r1load, 
+r0load, xload, zload, pcbus, drhbus, drlbus, trbus, r1bus, r0bus, membus, busmem;
 
-
+output clr;
+output reg[3:0] alus;
 //parameter's define
 
 wire reset;
 
 //在下方加上自行定义的状态
-wire fetch1,fetch2,fetch3,nop1；
-
+wire fetch1,fetch2,fetch3,nop1;
+wire add1, add2;
 //加上自行设计的指令，这里是译码器的输出，所以nop指令经译码器输出后为inop。
 //类似地，add指令指令经译码器输出后为iadd；inac指令经译码器输出后为iinac，......
 reg inop;
+reg iadd;
 
 //时钟节拍，8个为一个指令周期，t0-t2分别对应fetch1-fetch3，t3-t7分别对应各指令的执行周期，当然不是所有指令都需要5个节拍的。例如add指令只需要2个节拍：t3和t4
 reg t0,t1,t2,t3,t4,t5,t6,t7; //时钟节拍，8个为一个cpu周期
@@ -41,7 +48,7 @@ assign reset = rst&(cpustate == 2'b11);
 // assign signals for the cunter
 
 //clr信号是每条指令执行完毕后必做的清零，下面clr赋值语句要修改，需要“或”各指令的最后一个周期
-assign clr=nop1;
+assign clr=nop1 || add2;
 
 assign inc=~clr;
 
@@ -54,13 +61,24 @@ assign fetch3=t2;
 //什么都不做的译码
 assign nop1=inop&&t3;//inop表示nop指令，nop1是nop指令的执行周期的第一个状态也是最后一个状态，因为只需要1个节拍t3完成
 
+
 //以下写出各条指令状态的表达式
-
-
+assign add1=iadd&&t3;//add
+assign add2=iadd&&t4;
 
 //以下给出了pcbus的逻辑表达式，写出其他控制信号的逻辑表达式
 assign pcbus=fetch1||fetch3;
-
+assign arload = fetch1||fetch3;
+assign read = fetch2;
+assign membus = fetch2;
+assign drload = fetch2;
+assign pcinc = fetch2;
+assign irload = fetch3;
+assign r0bus = add1;
+assign xload = add1;
+assign r1bus = add2;
+assign r0load = add2;
+assign zload = add2;
 
 
 //the finite state
@@ -70,8 +88,9 @@ begin
 	if(!reset)
 		begin//各指令清零，以下已为nop指令清零，请补充其他指令，为其他指令清零
 			inop<=0;
+			iadd<=0;
 		
-		
+			alus <= 4'bzzzz;
 		end
 	else 
 	begin
@@ -83,6 +102,7 @@ begin
 			case(din[7:4])
 			4'd0: begin//指令高4位为0，应该是nop指令，因此这里inop的值是1，而其他指令应该清零，请补充为其他指令清零的语句
 				inop<=1;
+				iadd<=0;
 							
 				end
 			4'd1:  begin
@@ -90,8 +110,9 @@ begin
 				//该指令需要做加法运算，详见《示例机的设计Quartus II和使用说明文档》中“ALU的设计”，因此这里要对alus赋值
 				//后续各分支类似，只有一条指令为1，其他指令为0，以下分支都给出nop指令的赋值，需要补充其他指令，注意涉及到运算的都要对alus赋值
 				inop<=0;
+				iadd<=1;
 				
-				
+				alus <= 4'b0001;
 				//alus=？，需要为alus赋值
 			
 				end
@@ -115,7 +136,7 @@ begin
 			4'd7:	begin
 				
 				end
-				//如果还有分支，可以继续写，如果没有分支了，写上defuault语句	
+				//如果还有分支，可以继续写，如果没有分支了，写上defuault语句	?
 			endcase
 		end
 	end

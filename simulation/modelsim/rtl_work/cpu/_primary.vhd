@@ -14,6 +14,7 @@ entity cpu is
         data_out        : out    vl_logic_vector(7 downto 0);
         r0dbus          : out    vl_logic_vector(7 downto 0);
         r1dbus          : out    vl_logic_vector(7 downto 0);
+        zout            : out    vl_logic;
         read            : out    vl_logic;
         write           : out    vl_logic;
         arload          : out    vl_logic;
@@ -35,7 +36,6 @@ entity cpu is
         r0bus           : out    vl_logic;
         membus          : out    vl_logic;
         busmem          : out    vl_logic;
-        clr             : out    vl_logic;
-        zout            : out    vl_logic
+        clr             : out    vl_logic
     );
 end cpu;
