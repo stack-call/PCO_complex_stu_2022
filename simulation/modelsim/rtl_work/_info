@@ -4,10 +4,10 @@ K3
 cModel Technology
 Z0 dD:\webcourse\PCO_complex_stu_2022\simulation\modelsim
 valu
-Z1 IFUYhDW3aQiBdd5gfMKC2f1
+Z1 IoZeW?[==VDMP5Wl4<[7>[1
 Z2 V4kM4=k>e8Sl8B0X`m5eD32
 Z3 dD:\webcourse\PCO_complex_stu_2022\simulation\modelsim
-Z4 w1670207711
+Z4 w1670246115
 Z5 8D:/webcourse/PCO_complex_stu_2022/rtl/alu.v
 Z6 FD:/webcourse/PCO_complex_stu_2022/rtl/alu.v
 L0 2
@@ -16,8 +16,8 @@ r1
 31
 Z8 o-vlog01compat -work work -O0
 Z9 !s92 -vlog01compat -work work +incdir+D:/webcourse/PCO_complex_stu_2022/rtl -O0
-Z10 !s100 X56n25STXFH5olQBVYaiO1
-Z11 !s108 1670211123.760000
+Z10 !s100 o^j:ZlEY<B^H@17Ok=hg10
+Z11 !s108 1670246665.862000
 Z12 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/alu.v|
 Z13 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/alu.v|
 !i10b 1
@@ -37,7 +37,7 @@ r1
 R8
 R9
 Z19 !s100 T:e111B<GZeiMZMjNWdW40
-Z20 !s108 1670211123.701000
+Z20 !s108 1670246665.792000
 Z21 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/ar.v|
 Z22 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/ar.v|
 !i10b 1
@@ -57,17 +57,17 @@ r1
 R8
 R9
 Z28 !s100 V1Te3mkazH_W@UEFX3KW61
-Z29 !s108 1670211123.870000
+Z29 !s108 1670246666.009000
 Z30 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/clk_div.v|
 Z31 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/clk_div.v|
 !i10b 1
 !s85 0
 !s101 -O0
 vcontrol
-Z32 I@UYiE`6TYih>zTMT@VjV72
+Z32 Ig4nWGHk8]`9gQn`ObjOGJ1
 Z33 V84<fbQD@>[5[R9Yi`fCT33
 R3
-Z34 w1670210895
+Z34 w1670246126
 Z35 8D:/webcourse/PCO_complex_stu_2022/rtl/control.v
 Z36 FD:/webcourse/PCO_complex_stu_2022/rtl/control.v
 L0 14
@@ -76,8 +76,8 @@ r1
 31
 R8
 R9
-Z37 !s100 El_Dza;=XLIMR?]YIJ6kz0
-Z38 !s108 1670211123.645000
+Z37 !s100 fVCBb2WUFGUK6gn;0?`jU2
+Z38 !s108 1670246665.721000
 Z39 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/control.v|
 Z40 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/control.v|
 !i10b 1
@@ -97,7 +97,7 @@ r1
 R8
 R9
 Z46 !s100 PKCS4WgH<d1IAU]Q94o6G1
-Z47 !s108 1670211123.594000
+Z47 !s108 1670246665.656000
 Z48 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v|
 Z49 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v|
 !i10b 1
@@ -118,7 +118,7 @@ R8
 R9
 Z55 n@c@p@u_@controller
 Z56 !s100 HX4WADefagVOTUK:T==Ml0
-Z57 !s108 1670211123.939000
+Z57 !s108 1670246666.096000
 Z58 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/CPU_Controller.v|
 Z59 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/CPU_Controller.v|
 !i10b 1
@@ -138,7 +138,7 @@ r1
 R8
 R9
 Z65 !s100 1RGNPe?1E3M?dM43FSHAo1
-Z66 !s108 1670211123.540000
+Z66 !s108 1670246665.577000
 Z67 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/dr.v|
 Z68 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/dr.v|
 !i10b 1
@@ -158,7 +158,7 @@ r1
 R8
 R9
 Z74 !s100 A4X]cDGolXhREXR_ajAZ=0
-Z75 !s108 1670211123.485000
+Z75 !s108 1670246665.495000
 Z76 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/ir.v|
 Z77 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/ir.v|
 !i10b 1
@@ -178,7 +178,7 @@ r1
 R8
 R9
 Z83 !s100 GFP<>mg4S<6HSa=c[3K_k1
-Z84 !s108 1670211123.817000
+Z84 !s108 1670246665.932000
 Z85 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/light_show.v|
 Z86 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/light_show.v|
 !i10b 1
@@ -198,7 +198,7 @@ r1
 R8
 R9
 Z92 !s100 U@XTJI[TCMF81UU:VNVfm1
-Z93 !s108 1670211123.434000
+Z93 !s108 1670246665.410000
 Z94 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/pc.v|
 Z95 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/pc.v|
 !i10b 1
@@ -218,7 +218,7 @@ r1
 R8
 R9
 Z100 !s100 TQkdP8gVDO32XDMN[m5240
-Z101 !s108 1670211123.989000
+Z101 !s108 1670246666.171000
 Z102 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/qtsj.v|
 Z103 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/qtsj.v|
 !i10b 1
@@ -237,7 +237,7 @@ r1
 31
 R8
 Z109 !s100 AmF<Ll`?f1iVTCYk:W:b@1
-Z110 !s108 1670211123.099000
+Z110 !s108 1670246664.950000
 Z111 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/r0.v|
 Z112 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/r0.v|
 R9
@@ -258,7 +258,7 @@ r1
 R8
 R9
 Z118 !s100 9k1z0T;VIz7Z95a43a20J2
-Z119 !s108 1670211123.156000
+Z119 !s108 1670246665.055000
 Z120 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/r1.v|
 Z121 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/r1.v|
 !i10b 1
@@ -278,7 +278,7 @@ r1
 R8
 R9
 Z127 !s100 bHz@^iTnT@hzITMUX<TjJ1
-Z128 !s108 1670211123.218000
+Z128 !s108 1670246665.129000
 Z129 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/ram.v|
 Z130 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/ram.v|
 !i10b 1
@@ -298,7 +298,7 @@ r1
 R8
 R9
 Z136 !s100 U2i6PdQ]?4L:b8j2c3kOY1
-Z137 !s108 1670211123.375000
+Z137 !s108 1670246665.334000
 Z138 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/top.v|
 Z139 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/top.v|
 !i10b 1
@@ -306,11 +306,11 @@ Z139 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_
 !s101 -O0
 vtop_vlg_tst
 !i10b 1
-!s100 UYQbUNhZ9N4g1U1E^<1zF1
-IYf:aK9PLmkElbTFHzAM`e0
+!s100 fOjhERJ?981EeV:HiWhA42
+IKWe1=7i^J:N2EhDT89la;1
 VWH`X8iAJ@;Z6_Z>8HHbjI2
 R3
-w1670210840
+w1670246579
 8D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt
 FD:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt
 L0 29
@@ -318,7 +318,7 @@ R7
 r1
 !s85 0
 31
-!s108 1670211124.103000
+!s108 1670246666.326000
 !s107 D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt|
 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/simulation/modelsim|D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt|
 !s101 -O0
@@ -338,7 +338,7 @@ r1
 R8
 R9
 Z145 !s100 McmYdM:Ie?V1ZVHdOC?nm3
-Z146 !s108 1670211123.322000
+Z146 !s108 1670246665.266000
 Z147 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/tr.v|
 Z148 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/tr.v|
 !i10b 1
@@ -360,7 +360,7 @@ R9
 !i10b 1
 Z154 !s100 i]AnJIb1VNiH1X?MlIF<:1
 !s85 0
-Z155 !s108 1670211124.043000
+Z155 !s108 1670246666.245000
 Z156 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/x.v|
 Z157 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/x.v|
 !s101 -O0
@@ -378,7 +378,7 @@ r1
 R8
 R9
 Z163 !s100 4b3:nmPZVWPBeL3m4XR9L0
-Z164 !s108 1670211123.273000
+Z164 !s108 1670246665.195000
 Z165 !s107 D:/webcourse/PCO_complex_stu_2022/rtl/z.v|
 Z166 !s90 -reportprogress|300|-vlog01compat|-work|work|+incdir+D:/webcourse/PCO_complex_stu_2022/rtl|D:/webcourse/PCO_complex_stu_2022/rtl/z.v|
 !i10b 1

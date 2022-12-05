@@ -16,6 +16,7 @@ module alu(alus,x, bus, dout);
 			4'b0111: dout = ~ x;
 			4'b1000: dout = x ^ bus;
 			4'b1001: dout = x << 1;
+			4'b1010: dout = bus;
 			default:dout = 8'bx;
 		endcase
 	end
