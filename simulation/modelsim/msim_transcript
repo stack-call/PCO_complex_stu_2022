@@ -152,16 +152,16 @@
 #         Region: /top_vlg_tst/i1/mcpu
 # ** Warning: (vsim-3722) D:/webcourse/PCO_complex_stu_2022/rtl/top.v(58): [TFMPC] - Missing connection for port 'xload'.
 # 
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(41): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/dr.v(2).
+# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(42): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/dr.v(2).
 # 
 #         Region: /top_vlg_tst/i1/mcpu/mdr
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(54): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/r1.v(2).
+# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(55): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/r1.v(2).
 # 
 #         Region: /top_vlg_tst/i1/mcpu/mr1
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(57): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/x.v(2).
+# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(58): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/x.v(2).
 # 
 #         Region: /top_vlg_tst/i1/mcpu/mx
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(60): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'bus'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/alu.v(2).
+# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(61): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'bus'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/alu.v(2).
 # 
 #         Region: /top_vlg_tst/i1/mcpu/malu
 # 
@@ -171,35 +171,10 @@
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
-# ** Note: $finish    : D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt(174)
-#    Time: 150 ms  Iteration: 0  Instance: /top_vlg_tst
+# ** Note: $finish    : D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt(276)
+#    Time: 2265 ms  Iteration: 0  Instance: /top_vlg_tst
 # 1
-# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 174
+# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 276
 # Simulation Breakpoint: 1
-# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 174
+# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 276
 # MACRO ./PCO_comolex_run_msim_rtl_verilog.do PAUSED at line 34
-add wave -position insertpoint sim:/top_vlg_tst/i1/mcpu/mpc/*
-add wave -position insertpoint sim:/top_vlg_tst/i1/mcpu/mir/*
-restart -f
-# ** Warning: (vsim-3017) D:/webcourse/PCO_complex_stu_2022/rtl/top.v(58): [TFMPC] - Too few port connections. Expected 35, found 34.
-# 
-#         Region: /top_vlg_tst/i1/mcpu
-# ** Warning: (vsim-3722) D:/webcourse/PCO_complex_stu_2022/rtl/top.v(58): [TFMPC] - Missing connection for port 'xload'.
-# 
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(41): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/dr.v(2).
-# 
-#         Region: /top_vlg_tst/i1/mcpu/mdr
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(54): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/r1.v(2).
-# 
-#         Region: /top_vlg_tst/i1/mcpu/mr1
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(57): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'din'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/x.v(2).
-# 
-#         Region: /top_vlg_tst/i1/mcpu/mx
-# ** Warning: (vsim-3015) D:/webcourse/PCO_complex_stu_2022/rtl/cpu.v(60): [PCDPC] - Port size (8 or 8) does not match connection size (16) for port 'bus'. The port definition is at: D:/webcourse/PCO_complex_stu_2022/rtl/alu.v(2).
-# 
-#         Region: /top_vlg_tst/i1/mcpu/malu
-run -continue
-# ** Note: $finish    : D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt(174)
-#    Time: 150 ms  Iteration: 0  Instance: /top_vlg_tst
-# 1
-# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 174

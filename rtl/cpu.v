@@ -24,12 +24,13 @@ output clr, zout;
 wire[3:0] alus;
 wire clk_choose,clk_run;
 wire[15:0] dbus,pcdbus;
-wire[7:0]drdbus,trdbus,rdbus,r0dbus;
+wire[7:0]drdbus,trdbus,rdbus;//?rdbus
 
 //定义一些需要的内部信号
 wire [7:0] instr;
 wire [7:0] aludbus, xdbus;
 
+//!!!没有写低8位还是高8位
 //qtsj(clk_quick,clk_slow,clk_delay,clr,rst,SW_choose,A1,cpustate,clk_run,clk_choose);
 qtsj qtdl(.clk_quick(clk_quick),.clk_slow(clk_slow),.clk_delay(clk_delay),.clr(clr),.rst(rst),.SW_choose(SW_choose),
 .A1(A1),.cpustate(cpustate),.clk_run(clk_run),.clk_choose(clk_choose));

@@ -48,9 +48,9 @@ CPU_Controller controller(.SW1(SW1),.SW2(SW2),.CPU_state(cpustate));
 //补充cpu实例化的语句
 cpu mcpu(
 	.data_in(rambus),.clk_quick(clk_quick),.clk_slow(clk_slow),.clk_delay(clk_delay),
-   .rst(rst),.SW_choose(SW_choose),.A1(A1),.cpustate(cpustate),.zout(z),
+   .rst(rst),.SW_choose(SW_choose),.A1(A1),.cpustate(cpustate),.zout(Z),
 	.addr(addr), .data_out(data), .r0dbus(r0dbus), .r1dbus(r1dbus), 
-	.read(read_led),.write(write_led),.arload(arload_led),.arinc(arinc_led),.pcinc(pcinc_led),.pcload(pcload_led),
+	.read(read),.write(write),.arload(arload_led),.arinc(arinc_led),.pcinc(pcinc_led),.pcload(pcload_led),
 	.drload(drload_led),.trload(trload_led),.irload(irload_led),.r1load(r1load_led),.r0load(r0load_led),
 	.zload(zload_led),.pcbus(pcbus_led),.drhbus(drhbus_led),.drlbus(drlbus_led),.trbus(trbus_led),
 	.r1bus(r1bus_led),.r0bus(r0bus_led),.membus(membus_led),.busmem(busmem_led),
