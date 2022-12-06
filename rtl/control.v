@@ -50,7 +50,7 @@ wire shl1, shl2;
 
 wire jmp1, jmp2, jmp3;
 wire jpz1, jpz2, jpz3;
-
+wire jpnz1, jpnz2, jpnz3;
 wire lad1, lad2, lad3, lad4, lad5;
 wire sto1, sto2, sto3, sto4, sto5;
 //加上自行设计的指令，这里是译码器的输出，所以nop指令经译码器输出后为inop。
@@ -61,7 +61,6 @@ reg iadd;
 reg isub;
 reg iand;
 reg ior;
-reg ixor;
 
 reg iinc;
 reg idec;
@@ -71,6 +70,7 @@ reg iclr;
 reg ishl;
 reg ijmp;
 reg ijpz;
+reg ijpnz;
 reg ilad;
 reg isto;
 
@@ -84,7 +84,7 @@ assign reset = rst&(cpustate == 2'b11);
 // assign signals for the cunter
 
 //clr信号是每条指令执行完毕后必做的清零，下面clr赋值语句要修改，需要“或”各指令的最后一个周期
-assign clr=nop1 || add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 || not2 || mvr1 || clr1 || shl2 || jmp3 || lad5 || sto5 || jpz3;
+assign clr=nop1 || add2 || sub2 || and2 || or2 || inc2 || dec2 || not2 || mvr1 || clr1 || shl2 || jmp3 || lad5 || sto5 || jpz3 || jpnz3;
 
 assign inc=~clr;
 
@@ -106,8 +106,6 @@ assign and1=iand&&t3;//and
 assign and2=iand&&t4;
 assign or1=ior&&t3;//or
 assign or2=ior&&t4;
-assign xor1=ixor&&t3;//xor
-assign xor2=ixor&&t4;
 
 
 assign inc1=iinc&&t3;
@@ -129,6 +127,10 @@ assign jmp3=ijmp&&t5;
 assign jpz1=ijpz&&t3;
 assign jpz2=ijpz&&t4;
 assign jpz3=ijpz&&t5;
+assign jpnz1=ijpnz&&t3;
+assign jpnz2=ijpnz&&t4;
+assign jpnz3=ijpnz&&t5;
+
 
 assign lad1=ilad&&t3;
 assign lad2=ilad&&t4;
@@ -144,24 +146,24 @@ assign sto5=isto&&t7;
 //以下给出了pcbus的逻辑表达式，写出其他控制信号的逻辑表达式
 assign pcbus=fetch1 || fetch3;
 assign arload = fetch1 || fetch3 || lad3 || sto3;
-assign read = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2);
-assign membus = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2);
-assign drload = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 ||sto2 || sto4 || (z&&jpz1) || (z&&jpz2);
-assign pcinc = fetch2 || lad1 || lad2 || sto1 || sto2 ||(!z&&jpz2); //需不需要这部分呢？ || (!z&&jpz3);
+assign read = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
+assign membus = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
+assign drload = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 ||sto2 || sto4 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
+assign pcinc = fetch2 || lad1 || lad2 || sto1 || sto2 ||(!z&&jpz2) || (z&&jpnz2); //需不需要这部分呢？ || (!z&&jpz3) || (z&&jpnz3);
 assign irload = fetch3;
-assign r0bus = add1 || sub1 || and1 || or1 || xor1 || inc1 || dec1 || not1 || mvr1 || shl1 || sto4;
-assign xload = add1 ||  sub1 || and1 || or1 || xor1 || inc1 || not1 || dec1 || shl1;
-assign r1bus = add2 || sub2 || and2 || or2|| xor2;
-assign r0load = add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 ||not2 || clr1 || shl2 || lad5;
-assign zload = add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 || not2 || clr1 || shl2;
+assign r0bus = add1 || sub1 || and1 || or1 || inc1 || dec1 || not1 || mvr1 || shl1 || sto4;
+assign xload = add1 ||  sub1 || and1 || or1 || inc1 || not1 || dec1 || shl1;
+assign r1bus = add2 || sub2 || and2 || or2;
+assign r0load = add2 || sub2 || and2 || or2 || inc2 || dec2 ||not2 || clr1 || shl2 || lad5;
+assign zload = add2 || sub2 || and2 || or2 || inc2 || dec2 || not2 || clr1 || shl2;
 assign r1load = mvr1;
-assign arinc = jmp1 || lad1 || sto1 ||(z&&jpz1);
+assign arinc = jmp1 || lad1 || sto1 ||(z&&jpz1) || (!z&&jpnz1);
 assign write = sto5;
-assign pcload=jmp3 || (z&&jpz3);
-assign trload=jmp2 || lad2 || sto2 || (z&&jpz2);
-assign drhbus=jmp3 || lad3 || sto3 || (z&&jpz3);
+assign pcload=jmp3 || (z&&jpz3) || (!z&&jpnz3);
+assign trload=jmp2 || lad2 || sto2 || (z&&jpz2) || (!z&&jpnz2);
+assign drhbus=jmp3 || lad3 || sto3 || (z&&jpz3) || (!z&&jpnz3);
 assign drlbus=lad5 || sto5;
-assign trbus=jmp3 || lad3 || sto3 || (z&&jpz3);
+assign trbus=jmp3 || lad3 || sto3 || (z&&jpz3) || (!z&&jpnz3);
 assign busmem=sto5;
 //the finite state
 
@@ -174,7 +176,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -183,6 +184,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 			alus <= 4'bzzzz;
@@ -201,7 +203,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -210,6 +211,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				end
@@ -222,7 +224,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -231,6 +232,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus <= 4'b0001;
@@ -243,7 +245,6 @@ begin
 				isub<=1;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -252,6 +253,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus <= 4'b0010;
@@ -262,7 +264,6 @@ begin
 				isub<=0;
 				iand<=1;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -271,6 +272,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus <= 4'b0101;
@@ -281,7 +283,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=1;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -289,18 +290,18 @@ begin
 				iclr<=0;
 				ishl<=0;
 				ijmp<=0;
+				ijpnz<=0;
 				ijpz<=0;
 				ilad<=0;
 				isto<=0;
 				alus <= 4'b0110;
 				end
-			4'd5:  begin //xor
+			4'd5:  begin //jpnz
 				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=1;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -309,9 +310,9 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=1;
 				ilad<=0;
 				isto<=0;
-				alus <= 4'b1000;
 				end
 			4'd6:	begin //inc
 				inop<=0;
@@ -319,7 +320,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=1;
 				idec<=0;
 				inot<=0;
@@ -327,6 +327,7 @@ begin
 				iclr<=0;
 				ishl<=0;
 				ijmp<=0;
+				ijpnz<=0;
 				ijpz<=0;
 				ilad<=0;
 				isto<=0;
@@ -338,7 +339,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=1;
 				inot<=0;
@@ -347,6 +347,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus<=4'b0100;
@@ -357,7 +358,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=1;
@@ -366,6 +366,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus<=4'b0111;
@@ -376,7 +377,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -385,6 +385,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus<=4'b0000;
@@ -395,7 +396,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -404,6 +404,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				end
@@ -413,7 +414,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -422,6 +422,7 @@ begin
 				ishl<=0;
 				ijmp<=1;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 			end
@@ -431,7 +432,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -440,6 +440,7 @@ begin
 				ishl<=1;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 				alus<=4'b1001;
@@ -450,7 +451,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -459,6 +459,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=1;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=0;
 			end
@@ -468,7 +469,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -477,6 +477,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=1;
 				isto<=0;
 				alus<=4'b1010;
@@ -487,7 +488,6 @@ begin
 				isub<=0;
 				iand<=0;
 				ior<=0;
-				ixor<=0;
 				iinc<=0;
 				idec<=0;
 				inot<=0;
@@ -496,6 +496,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ijpz<=0;
+				ijpnz<=0;
 				ilad<=0;
 				isto<=1;
 				end
