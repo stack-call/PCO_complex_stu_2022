@@ -171,10 +171,10 @@
 # view signals
 # .main_pane.objects.interior.cs.body.tree
 # run -all
-# ** Note: $finish    : D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt(285)
-#    Time: 2400 ms  Iteration: 0  Instance: /top_vlg_tst
+# ** Note: $finish    : D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt(328)
+#    Time: 3055 ms  Iteration: 0  Instance: /top_vlg_tst
 # 1
-# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 285
+# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 328
 # Simulation Breakpoint: 1
-# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 285
+# Break in Module top_vlg_tst at D:/webcourse/PCO_complex_stu_2022/simulation/modelsim/top.vt line 328
 # MACRO ./PCO_comolex_run_msim_rtl_verilog.do PAUSED at line 34

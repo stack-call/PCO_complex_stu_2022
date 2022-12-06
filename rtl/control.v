@@ -51,7 +51,7 @@ wire shl1, shl2;
 wire jmp1, jmp2, jmp3;
 
 wire lad1, lad2, lad3, lad4, lad5;
-
+wire sto1, sto2, sto3, sto4, sto5;
 //加上自行设计的指令，这里是译码器的输出，所以nop指令经译码器输出后为inop。
 //类似地，add指令指令经译码器输出后为iadd；inac指令经译码器输出后为iinac，......
 reg inop;
@@ -70,6 +70,7 @@ reg iclr;
 reg ishl;
 reg ijmp;
 reg ilad;
+reg isto;
 //时钟节拍，8个为一个指令周期，t0-t2分别对应fetch1-fetch3，t3-t7分别对应各指令的执行周期，当然不是所有指令都需要5个节拍的。例如add指令只需要2个节拍：t3和t4
 reg t0,t1,t2,t3,t4,t5,t6,t7; //时钟节拍，8个为一个cpu周期
 
@@ -80,7 +81,7 @@ assign reset = rst&(cpustate == 2'b11);
 // assign signals for the cunter
 
 //clr信号是每条指令执行完毕后必做的清零，下面clr赋值语句要修改，需要“或”各指令的最后一个周期
-assign clr=nop1 || add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 || not2 || mvr1 || clr1 || shl2 || jmp3 || lad5;
+assign clr=nop1 || add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 || not2 || mvr1 || clr1 || shl2 || jmp3 || lad5 || sto5;
 
 assign inc=~clr;
 
@@ -128,28 +129,34 @@ assign lad2=ilad&&t4;
 assign lad3=ilad&&t5;
 assign lad4=ilad&&t6;
 assign lad5=ilad&&t7;
+
+assign sto1=isto&&t3;
+assign sto2=isto&&t4;
+assign sto3=isto&&t5;
+assign sto4=isto&&t6;
+assign sto5=isto&&t7;
 //以下给出了pcbus的逻辑表达式，写出其他控制信号的逻辑表达式
 assign pcbus=fetch1 || fetch3;
-assign arload = fetch1 || fetch3 || lad3;
-assign read = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4;
-assign membus = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4;
-assign drload = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4;
-assign pcinc = fetch2 || lad1 ||lad2;
+assign arload = fetch1 || fetch3 || lad3 || sto3;
+assign read = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2;
+assign membus = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2;
+assign drload = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 ||sto2 || sto4;
+assign pcinc = fetch2 || lad1 || lad2 || sto1 || sto2;
 assign irload = fetch3;
-assign r0bus = add1 || sub1 || and1 || or1 || xor1 || inc1 || dec1 || not1 || mvr1 || shl1;
+assign r0bus = add1 || sub1 || and1 || or1 || xor1 || inc1 || dec1 || not1 || mvr1 || shl1 || sto4;
 assign xload = add1 ||  sub1 || and1 || or1 || xor1 || inc1 || not1 || dec1 || shl1;
 assign r1bus = add2 || sub2 || and2 || or2|| xor2;
 assign r0load = add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 ||not2 || clr1 || shl2 || lad5;
 assign zload = add2 || sub2 || and2 || or2 || xor2 || inc2 || dec2 || not2 || clr1 || shl2;
 assign r1load = mvr1;
-assign arinc = jmp1 || lad1;
-assign write = 0;
+assign arinc = jmp1 || lad1 || sto1;
+assign write = sto5;
 assign pcload=jmp3;
-assign trload=jmp2 || lad2;
-assign drhbus=jmp3 || lad3;
-assign drlbus=lad5;
-assign trbus=jmp3 || lad3;
-assign busmem=0;
+assign trload=jmp2 || lad2 || sto2;
+assign drhbus=jmp3 || lad3 || sto3;
+assign drlbus=lad5 || sto5;
+assign trbus=jmp3 || lad3 || sto3;
+assign busmem=sto5;
 //the finite state
 
 always@(posedge clk or negedge reset)
@@ -170,6 +177,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 			alus <= 4'bzzzz;
 		end
 	else 
@@ -195,6 +203,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				end
 			4'd1:  begin
 				//指令高4位为0001，应该是add指令，因此iadd指令为1，其他指令都应该是0。
@@ -214,12 +223,13 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus <= 4'b0001;
 				//alus=？，需要为alus赋值
 			
 				end
-			4'd2:  begin
-				inop<=0; //sub
+			4'd2:  begin //sub
+				inop<=0;
 				iadd<=0;
 				isub<=1;
 				iand<=0;
@@ -233,10 +243,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus <= 4'b0010;
 				end
-			4'd3:  begin
-				inop<=0; //and
+			4'd3:  begin //and
+				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=1;
@@ -250,10 +261,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus <= 4'b0101;
 				end
-			4'd4:  begin
-				inop<=0; //or
+			4'd4:  begin //or
+				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=0;
@@ -267,10 +279,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus <= 4'b0110;
 				end
-			4'd5:  begin
-				inop<=0; //xor
+			4'd5:  begin //xor
+				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=0;
@@ -284,6 +297,7 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus <= 4'b1000;
 				end
 			4'd6:	begin //inc
@@ -301,10 +315,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus<=4'b0011;
 				end
-			4'd7:	begin
-				inop<=0;//dec
+			4'd7:	begin //dec
+				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=0;
@@ -318,10 +333,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus<=4'b0100;
 				end
-			4'd8:	begin
-				inop<=0;//not
+			4'd8:	begin //not
+				inop<=0; 
 				iadd<=0;
 				isub<=0;
 				iand<=0;
@@ -335,10 +351,11 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus<=4'b0111;
 				end
-			4'd9:	begin
-				inop<=0;//clr
+			4'd9:	begin //clr
+				inop<=0;
 				iadd<=0;
 				isub<=0;
 				iand<=0;
@@ -352,9 +369,10 @@ begin
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
-				alus<=4'b0111;
+				isto<=0;
+				alus<=4'b0000;
 				end
-			4'd10: begin
+			4'd10: begin //mvr
 				inop<=0;
 				iadd<=0;
 				isub<=0;
@@ -363,12 +381,15 @@ begin
 				ixor<=0;
 				iinc<=0;
 				idec<=0;
+				inot<=0;
 				imvr<=1;
+				iclr<=0;
 				ishl<=0;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				end
-			4'd11: begin
+			4'd11: begin //jmp
 				inop<=0;
 				iadd<=0;
 				isub<=0;
@@ -377,12 +398,15 @@ begin
 				ixor<=0;
 				iinc<=0;
 				idec<=0;
+				inot<=0;
 				imvr<=0;
+				iclr<=0;
 				ishl<=0;
 				ijmp<=1;
 				ilad<=0;
+				isto<=0;
 			end
-			4'd12: begin
+			4'd12: begin //shl
 				inop<=0;
 				iadd<=0;
 				isub<=0;
@@ -391,13 +415,16 @@ begin
 				ixor<=0;
 				iinc<=0;
 				idec<=0;
+				inot<=0;
 				imvr<=0;
+				iclr<=0;
 				ishl<=1;
 				ijmp<=0;
 				ilad<=0;
+				isto<=0;
 				alus<=4'b1001;
 				end
-			4'd14: begin
+			4'd14: begin //lad
 				inop<=0;
 				iadd<=0;
 				isub<=0;
@@ -406,11 +433,31 @@ begin
 				ixor<=0;
 				iinc<=0;
 				idec<=0;
+				inot<=0;
 				imvr<=0;
+				iclr<=0;
 				ishl<=0;
 				ijmp<=0;
 				ilad<=1;
+				isto<=0;
 				alus<=4'b1010;
+				end
+			4'd15: begin //sto
+				inop<=0;
+				iadd<=0;
+				isub<=0;
+				iand<=0;
+				ior<=0;
+				ixor<=0;
+				iinc<=0;
+				idec<=0;
+				inot<=0;
+				imvr<=0;
+				iclr<=0;
+				ishl<=0;
+				ijmp<=0;
+				ilad<=0;
+				isto<=1;
 				end
 				//如果还有分支，可以继续写，如果没有分支了，写上defuault语句	?
 			endcase
