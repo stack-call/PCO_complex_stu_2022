@@ -149,7 +149,7 @@ assign arload = fetch1 || fetch3 || lad3 || sto3;
 assign read = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
 assign membus = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 || sto2 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
 assign drload = fetch2 || jmp1 || jmp2 || lad1 || lad2 || lad4 || sto1 ||sto2 || sto4 || (z&&jpz1) || (z&&jpz2) || (!z&&jpnz1) || (!z&&jpnz2);
-assign pcinc = fetch2 || lad1 || lad2 || sto1 || sto2 ||(!z&&jpz2) || (z&&jpnz2); //需不需要这部分呢？ || (!z&&jpz3) || (z&&jpnz3);
+assign pcinc = fetch2 || lad1 || lad2 || sto1 || sto2 ||(!z&&jpz2) || (z&&jpnz2) || (!z&&jpz3) || (z&&jpnz3); //需不需要第三部分呢？ 
 assign irload = fetch3;
 assign r0bus = add1 || sub1 || and1 || or1 || inc1 || dec1 || not1 || mvr1 || shl1 || sto4;
 assign xload = add1 ||  sub1 || and1 || or1 || inc1 || not1 || dec1 || shl1;
@@ -522,7 +522,7 @@ begin
 	end
 	else
 	begin
-		if(inc) //运行
+		if(inc) //运行，~clr,只要没有到某指令最后一个周期，就加节拍
 		begin
 			t7<=t6;
 			t6<=t5;
@@ -533,7 +533,7 @@ begin
 			t1<=t0;
 			t0<=0;
 	end
-		else if(clr) //清零
+		else if(clr) //清零,每个指令的最后一个周期
 		begin
 			t0<=1;
 			t1<=0;

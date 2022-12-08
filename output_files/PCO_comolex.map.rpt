@@ -1,5 +1,5 @@
 Analysis & Elaboration report for PCO_comolex
-Tue Dec 06 10:11:01 2022
+Thu Dec 08 17:21:49 2022
 Quartus II 64-Bit Version 14.0.0 Build 200 06/17/2014 SJ Full Version
 
 
@@ -49,7 +49,7 @@ agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Elaboration Summary                                                   ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Elaboration Status      ; Successful - Tue Dec 06 10:11:01 2022       ;
+; Analysis & Elaboration Status      ; Successful - Thu Dec 08 17:21:49 2022       ;
 ; Quartus II 64-Bit Version          ; 14.0.0 Build 200 06/17/2014 SJ Full Version ;
 ; Revision Name                      ; PCO_comolex                                 ;
 ; Top-level Entity Name              ; top                                         ;
@@ -281,7 +281,7 @@ agreement for further details.
 Info: *******************************************************************
 Info: Running Quartus II 64-Bit Analysis & Elaboration
     Info: Version 14.0.0 Build 200 06/17/2014 SJ Full Version
-    Info: Processing started: Tue Dec 06 10:11:00 2022
+    Info: Processing started: Thu Dec 08 17:21:48 2022
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off PCO_comolex -c PCO_comolex --analysis_and_elaboration
 Info (11104): Parallel Compilation has detected 12 hyper-threaded processors. However, the extra hyper-threaded processors will not be used by default. Parallel Compilation will use 6 of the 6 physical processors detected instead.
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/r0.v
@@ -321,8 +321,6 @@ Info (12021): Found 1 design units, including 1 entities, in source file rtl/qts
 Info (12021): Found 1 design units, including 1 entities, in source file rtl/x.v
     Info (12023): Found entity 1: x
 Info (12127): Elaborating entity "top" for the top level hierarchy
-Warning (10034): Output port "read_led" at top.v(24) has no driver
-Warning (10034): Output port "write_led" at top.v(24) has no driver
 Info (12128): Elaborating entity "clk_div" for hierarchy "clk_div:quick"
 Info (12128): Elaborating entity "CPU_Controller" for hierarchy "CPU_Controller:controller"
 Info (12128): Elaborating entity "cpu" for hierarchy "cpu:mcpu"
@@ -354,9 +352,9 @@ Info (10041): Inferred latch for "data_rom[7]" at ram.v(51)
 Info (12128): Elaborating entity "light_show" for hierarchy "light_show:show"
 Warning (12241): 5 hierarchies have connectivity warnings - see the Connectivity Checks report folder
 Info (144001): Generated suppressed messages file D:/webcourse/PCO_complex_stu_2022/output_files/PCO_comolex.map.smsg
-Info: Quartus II 64-Bit Analysis & Elaboration was successful. 0 errors, 7 warnings
-    Info: Peak virtual memory: 4651 megabytes
-    Info: Processing ended: Tue Dec 06 10:11:01 2022
+Info: Quartus II 64-Bit Analysis & Elaboration was successful. 0 errors, 5 warnings
+    Info: Peak virtual memory: 4656 megabytes
+    Info: Processing ended: Thu Dec 08 17:21:49 2022
     Info: Elapsed time: 00:00:01
     Info: Total CPU time (on all processors): 00:00:01
 
